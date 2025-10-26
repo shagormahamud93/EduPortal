@@ -52,26 +52,6 @@ export const getUser = async (req: Request, res: Response, next: NextFunction) =
   }
 };
 
-
-// export const listUsers = async (req: Request, res: Response, next: NextFunction) => {
-//   try {
-//     const { role } = req.query; // ?role=student or ?role=teacher
-//     const filter: any = {};
-//     if (role) filter.role = role;
-//     const users = await UserModel.find(filter).select("-passwordHash").lean();
-
-//       sendResponse(res, {
-//       success: true,
-//       statusCode: httpStatus.OK,
-//       message: "User retrieved successfully",
-//       data: users,
-//     });
-//     // res.json(users);
-//   } catch (err) {
-//     next(err);
-//   }
-// };
-
 export const listUsers = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { role } = req.query; // ?role=student or ?role=teacher
@@ -82,6 +62,10 @@ export const listUsers = async (req: Request, res: Response, next: NextFunction)
 
     const users = await UserModel.find(filter)
       .select("-passwordHash")
+      .populate({
+        path: "enrolledCourses",       // field to populate
+        select: "category" // only select these fields
+      })
       .lean();
 
     // If no users found

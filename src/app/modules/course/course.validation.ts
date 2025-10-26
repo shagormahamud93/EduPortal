@@ -10,7 +10,7 @@ export const createCourseSchema = z.object({
   duration: z.string().optional(),
   teacherId: z.string().refine((v) => Types.ObjectId.isValid(v), { message: "Invalid teacherId" }),
   teacherName: z.string().min(1),
-  image: z.string().url().optional(),
+  image: z.string().optional(),
   isPublished: z.boolean().optional(),
 });
 

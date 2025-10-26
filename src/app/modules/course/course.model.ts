@@ -34,6 +34,8 @@ const CourseSchema = new Schema<ICourseDocument>(
   { timestamps: true }
 );
 
+
+
 // Method to recalculate average rating
 CourseSchema.methods.recalculateAvg = function () {
   if (!this.ratings || this.ratings.length === 0) {
@@ -44,6 +46,7 @@ CourseSchema.methods.recalculateAvg = function () {
   }
   return this.avgRating;
 };
+
 
 const CourseModel = mongoose.model<ICourseDocument>("Course", CourseSchema);
 export default CourseModel;

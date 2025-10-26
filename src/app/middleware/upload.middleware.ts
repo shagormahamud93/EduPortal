@@ -1,17 +1,21 @@
 import multer from "multer";
 import path from "path";
+import fs from "fs";
 
-// Set storage engine
+// Project root er uploads folder
+const uploadsDir = path.join(process.cwd(), "uploads"); // ✅ process.cwd() always project root
+if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+
+// Multer storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/"); // folder to save images
+    cb(null, uploadsDir);
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); // unique file name
-  }
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
 });
 
-// File filter (optional, only images)
 const fileFilter = (req: any, file: Express.Multer.File, cb: any) => {
   if (file.mimetype.startsWith("image/")) cb(null, true);
   else cb(new Error("Only image files are allowed!"), false);

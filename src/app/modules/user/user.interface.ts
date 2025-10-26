@@ -1,13 +1,4 @@
 
-// export type TUser = {
-//     id: string;
-//     password: string;
-//     needsPasswordChange: boolean;
-//     role: 'admin' | 'student' | 'faculty';
-//     status: 'in-progress' | 'completed' | 'graduated' | 'terminated' | "blocked";
-//     isDeleted: boolean;
-// }
-
 import { Types } from "mongoose";
 
 export type UserRole = "student" | "teacher" | "admin";
